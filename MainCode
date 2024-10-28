@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Tournament{
+    public:
+    int playerCount;
+    Tournament(){
+        playerCount = 0;
+    }
+    void addPlayer(string tag){
+        Player tag = 
+    }
+    class Player {
+    	string name;
+    	int score;
+    	int gamesPlayed;
+    	int wins;
+    	int losses;
+    	int ties;
+    	
+    public:
+        Player(string tag) {
+    		name = tag;
+    		score = 1000;
+    		gamesPlayed = 0;
+    		wins = 0;
+    		losses = 0;
+    		ties = 0;
+    	}
+    	Player(string tag, int scoreHold) {
+    		name = tag;
+    		score = scoreHold;
+    		gamesPlayed = 0;
+    		wins = 0;
+    		losses = 0;
+    		ties = 0;
+    	}
+    	string get_record(){
+    	    string record = to_string(wins) + "-" + to_string(losses) + "-" + to_string(ties);
+    	    return(record);
+    	}
+    	int get_score() {
+    		return(score);
+    	}
+    	void set_score(int scoreSet) {
+    		score = scoreSet;
+    	}
+    	int get_wins() {
+    		return(wins);
+    	}
+    	void add_win() {
+    		wins++;
+    	}
+    	int get_losses() {
+    		return(score);
+    	}
+    	void add_loss() {
+    		losses++;
+    	}
+    	int get_ties() {
+    		return(score);
+    	}
+    	void add_tie() {
+    		score++;
+    	}
+    };
+    void updateScores(){
+        cout << "Under Construction";
+    }
+    void reportMatch(Player winner, Player loser, bool tieFlag){
+        if(tieFlag){
+        }
+    }
+};
+int main()
+{
+    Tournament tourney = Tournament();
+    Tournament::Player MiggityMack = tourney.Player("MiggityMack");
+    cout << MiggityMack.get_record();
+}
