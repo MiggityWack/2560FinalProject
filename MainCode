@@ -1,19 +1,17 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <vector>
 using namespace std;
 class Tournament{
     public:
     int playerCount;
     bool started;
     bool manuallySeeded;
-    vector<Player> playerList;
-    int playerCount;
     Tournament(){
         playerCount = 0;
-        start = false;
+        started = false;
         manuallySeeded = false;
-        playerCount = 0;
     }
     class Player {
         string tag;
@@ -76,6 +74,14 @@ class Tournament{
             gamesPlayed++;
         }
     };
+    vector<Player> playerList;
+    /*Player playerSearch(string tag){
+        for(int i = 0; i<playerCount; i++){
+            if(playerList[i].get_tag() == tag){
+                return playerList[i];
+            }
+        }
+    }*/
     void calibrate_score(Player winner, Player loser, int winnerWins, int loserWins){
         int scoreDiff = winner.get_score() - loser.get_score() + 100;
         int scoreShiftWinner = ((0.5*scoreDiff)+100)*pow(.98,winner.get_games_played());
@@ -83,16 +89,22 @@ class Tournament{
         winner.set_score(winner.get_score()+scoreShiftWinner);
         loser.set_score(loser.get_score()-scoreShiftLoser);
     }
-    void addPlayer(Player player){
-        playerList.push_back(player);
+    void addPlayer(string tag){
+        Player newPlayer = Player(tag);
+        playerList.push_back(newPlayer);
         playerCount++;
     }
-    bool checkForPlayers(Player player){
-        for(int i = 0; i<playerCount; i++){
-            if(playerList[i] == player){
-                return true;
-            }
-        }
+    void addPlayerWithSkill(string tag, int score){
+        Player newPlayer = Player(tag, score);
+        playerList.push_back(newPlayer);
+        playerCount++;
+    }
+    bool checkForPlayers(Player playerCheck){
+        //for(int i = 0; i<playerCount; i++){
+        //    if(playerList[i].get_tag() == playerCheck.get_tag){
+        //        return true;
+        //    }
+        //}
         return false;
     }
     void reportMatch(Player player1, Player player2, int player1Wins, int player2Wins, bool disqual){
@@ -128,7 +140,15 @@ int main()
     Tournament tourney;
     bool done = false;
     int choice = 0;
+    string tag = "";
+    bool player1Set;
+    bool player2Set;
+    string player1;
+    string player2;
+    int score;
     while(!done){
+        player1Set = false;
+        player2Set = false;
         cin >> choice;
         switch(choice){
             case 1:
@@ -136,10 +156,10 @@ int main()
             break;
             case 2:
             cout << "Please insert the new player's tag" << endl;
-            string tag = "";
             cin >> tag;
-            Tournament::Player player(tag);
-            cout << player.get_score() << endl;
+            cout << "Please insert the new player's score. If unknown, enter 1000" << endl;
+            cin >> score;
+            tourney.addPlayerWithSkill(tag, score);
             break;
             case 3:
             while(!player1Set)
@@ -168,16 +188,17 @@ int main()
             }
             int player1Wins;
             int player2Wins;
-            cout << "How many wins did " << player1.getTag() << " get?" << endl;
+            cout << "How many wins did " << player1 << " get?" << endl;
             cin >> player1Wins;
-            cout << "How many wins did " << player2.getTag() << " get?" << endl;
+            cout << "How many wins did " << player2 << " get?" << endl;
             cin >> player2Wins;
-            tourney.reportMatch(player1, player2, player1Wins, player2Wins, false);
+            tourney.reportMatch(tourney.playerSearch(player1), tourney.playerSearch(player2), player1Wins, player2Wins, false);
+            break;
         }
-        
+
     }
-    
-    
+
+
     /*Tournament::Player MiggityMack("MiggityMack");
     Tournament::Player Swag66("Swag66");
     tourney.addPlayer(Swag66);
@@ -186,5 +207,5 @@ int main()
     tourney.reportMatch(Swag66, MiggityMack, 3, 1, false);
     cout << MiggityMack.get_score() << endl;
     cout << Swag66.get_wins() << endl;*/
-    
+
 }
