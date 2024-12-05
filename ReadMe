@@ -1,1 +1,6 @@
 Tournament System tracker. File database will eventually be added, for now is for local use to track position and standing post tournament, and to see initially pretournament on a blank slate. No UI included yet.
+As of 12/4 at 10:55 PM the code is officially done to be submitted. The C++ code and the QT code are in their separate folders
+In order to run CPP files simply download and run
+In order to run QT files, QT will be needed, but the CMake is included so it all should import cleanly
+Final Presentation and Report are in their own folder
+Anything outside of the folders is, for the most part, unneeded relics as I am too unfamiliar with Github to keep it all clean without removing the living proof of the editing process
